@@ -18,14 +18,14 @@ How to Run
 Step 1: Clone repo
         git clone https://github.com/binduj29/todo-tasks
         
-Step 2: Run Backend
-        dotnet run --project TodoApi
+Step 2: Run Backend -> 
+        dotnet run --project TodoApi ->
         Backend URL: http://localhost:5070
         
-Step 3: Run Frontend
-        cd todo-frontend
-        npm install
-        npm start
+Step 3: Run Frontend ->
+        cd todo-frontend ->
+        npm install ->
+        npm start ->
         Frontend URL: http://localhost:3000
 
 Improvements
