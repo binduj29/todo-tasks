@@ -1,0 +1,119 @@
+import "./styles.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import TaskTable from "./components/TaskTable";
+import AddTaskModal from "./components/AddTaskModal";
+
+export type Task = {
+  id: number;
+  text: string;
+  deadline?: string;
+  isDone: boolean;
+};
+
+const API = "http://localhost:5070/api/todo";
+
+function App() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [filter, setFilter] = useState("all");
+
+  const fetchTasks = async () => {
+    const res = await axios.get(API);
+    setTasks(res.data);
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const addTask = async (taskText: string, deadline: string) => {
+    await axios.post(API, {
+      text: taskText,
+      deadline: deadline || null,
+      isDone: false,
+    });
+
+    fetchTasks();
+  };
+
+  const deleteTask = async (id: number) => {
+    await axios.delete(`${API}/${id}`);
+    fetchTasks();
+  };
+
+  const toggleTask = async (task: Task) => {
+    await axios.put(`${API}/${task.id}`, {
+      ...task,
+      isDone: !task.isDone,
+    });
+
+    fetchTasks();
+  };
+
+  return (
+    <div style={{ padding: "40px", background: "#f4f6f8", minHeight: "100vh" }}>
+      <div className="container">
+        <div
+          style={{
+            marginBottom: "30px",
+          }}
+        >
+          <h2 style={{ margin: 0 }}>Todo Tasks</h2>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "15px",
+          }}
+        >
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button
+              className={`btn ${filter === "all" ? "btn-active" : "btn-secondary"}`}
+              onClick={() => setFilter("all")}
+            >
+              All
+            </button>
+
+            <button
+              className={`btn ${filter === "open" ? "btn-active" : "btn-secondary"}`}
+              onClick={() => setFilter("open")}
+            >
+              Open
+            </button>
+
+            <button
+              className={`btn ${filter === "done" ? "btn-active" : "btn-secondary"}`}
+              onClick={() => setFilter("done")}
+            >
+              Done
+            </button>
+          </div>
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowModal(true)}
+          >
+            + Add Task
+          </button>
+        </div>
+
+        <TaskTable
+          tasks={tasks}
+          onDelete={deleteTask}
+          onToggle={toggleTask}
+          filter={filter}
+        />
+
+        <AddTaskModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onAdd={addTask}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default App;
