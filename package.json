@@ -1,0 +1,10 @@
+{
+  "name": "todo-runner",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm --prefix todo-frontend start\" \"dotnet run --project TodoApi\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

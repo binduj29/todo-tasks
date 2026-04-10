@@ -6,6 +6,10 @@ todo-frontend/build/
 todo-frontend/.pnp
 todo-frontend/.pnp.js
 
+# Node (root orchestrator)
+node_modules/
+package-lock.json
+
 # testing
 todo-frontend/coverage
 
