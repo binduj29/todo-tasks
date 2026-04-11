@@ -4,7 +4,7 @@ A full-stack Todo application built with React (TypeScript) and ASP.NET Core (C#
 
 ---
 
-#Features
+# Features
 
 - Add tasks with description and deadline
 - Task description validation (min 10, max 70 characters)
@@ -33,7 +33,7 @@ Backend:
 
 ---
 
-#Project Structure 
+# Project Structure 
 
 TodoApi/ -> Backend (ASP.NET Core) 
 todo-frontend/ -> Frontend (React)
@@ -60,6 +60,6 @@ Frontend URL: http://localhost:3000
 
 ---
 
-#Improvements 
+# Improvements 
 
 Add authentication, improve UI, add state management (Redux/React Query), use Docker, deploy to cloud (Azure/AWS).
