@@ -46,16 +46,16 @@ todo-frontend/ -> Frontend (React)
 
 # Backend
 
-cd TodoApi
-dotnet restore
-dotnet run
+cd TodoApi ->
+dotnet restore ->
+dotnet run ->
 Backend URL: http://localhost:5070
 
 # Frontend
 
-cd todo-frontend
-npm install
-npm start
+cd todo-frontend ->
+npm install ->
+npm start ->
 Frontend URL: http://localhost:3000
 
 ---
