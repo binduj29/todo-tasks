@@ -70,6 +70,7 @@ const AddTaskModal: React.FC<Props> = ({ show, onClose, onAdd }) => {
         <textarea
           ref={textRef}
           value={text}
+          maxLength={70}
           onChange={(e) => setText(e.target.value)}
           rows={4}
           placeholder="Enter task details..."
@@ -84,6 +85,9 @@ const AddTaskModal: React.FC<Props> = ({ show, onClose, onAdd }) => {
             resize: "none",
           }}
         />
+        <div style={{ fontSize: "12px", textAlign: "right", color: "#666" }}>
+          {text.length}/70
+        </div>
 
         {errors.text && (
           <div style={{ color: "red", fontSize: "12px", marginBottom: "10px" }}>

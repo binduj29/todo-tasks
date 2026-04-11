@@ -60,50 +60,54 @@ const TaskTable: React.FC<Props> = ({ tasks, onDelete, onToggle, filter }) => {
     });
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th onClick={() => handleSort("task")}>Task ⬍</th>
-          <th onClick={() => handleSort("deadline")}>Deadline ⬍</th>
-          <th onClick={() => handleSort("status")}>Status ⬍</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {processed.map((task) => (
-          <tr key={task.id} className={isOverdue(task) ? "row-overdue" : ""}>
-            <td>{task.text}</td>
-            <td>{formatDate(task.deadline)}</td>
-
-            <td>
-              <span
-                className={`badge ${task.isDone ? "badge-done" : "badge-open"}`}
-              >
-                {task.isDone ? "Done" : "Open"}
-              </span>
-            </td>
-
-            <td>
-              <button
-                className="btn btn-secondary"
-                onClick={() => onToggle(task)}
-              >
-                {task.isDone ? "Reopen" : "Done"}
-              </button>
-
-              <button
-                className="btn btn-danger"
-                onClick={() => onDelete(task.id)}
-                style={{ marginLeft: "5px" }}
-              >
-                Delete
-              </button>
-            </td>
+    <div style={{ maxHeight: "300px", overflowY: "auto", marginTop: "10px" }}>
+      <table className="table">
+        <thead>
+          <tr>
+            <th onClick={() => handleSort("task")}>Task ⬍</th>
+            <th onClick={() => handleSort("deadline")}>Deadline ⬍</th>
+            <th onClick={() => handleSort("status")}>Status ⬍</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {processed.map((task) => (
+            <tr key={task.id} className={isOverdue(task) ? "row-overdue" : ""}>
+              <div className="text-ellipsis" title={task.text}>
+                {task.text}
+              </div>
+              <td>{formatDate(task.deadline)}</td>
+
+              <td>
+                <span
+                  className={`badge ${task.isDone ? "badge-done" : "badge-open"}`}
+                >
+                  {task.isDone ? "Done" : "Open"}
+                </span>
+              </td>
+
+              <td>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => onToggle(task)}
+                >
+                  {task.isDone ? "Reopen" : "Done"}
+                </button>
+
+                <button
+                  className="btn btn-danger"
+                  onClick={() => onDelete(task.id)}
+                  style={{ marginLeft: "5px" }}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
