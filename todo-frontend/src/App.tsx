@@ -11,16 +11,26 @@ export type Task = {
   isDone: boolean;
 };
 
-const API = "http://localhost:5070/api/todo";
+const API = process.env.REACT_APP_API_URL + "/api/todo";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState("all");
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const fetchTasks = async () => {
-    const res = await axios.get(API);
-    setTasks(res.data);
+    try {
+      setLoading(true);
+      const response = await axios.get(API);
+      setTasks(response.data);
+    } catch (err) {
+      setError("Failed to load tasks");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -59,6 +69,8 @@ function App() {
             marginBottom: "30px",
           }}
         >
+          {loading && <p>Loading...</p>}
+          {error && <p>{error}</p>}
           <h2 style={{ margin: 0 }}>Todo Tasks</h2>
         </div>
         <div
