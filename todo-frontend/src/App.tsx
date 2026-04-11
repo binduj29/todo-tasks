@@ -18,6 +18,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState("all");
 
+  // Loading and error handling states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
