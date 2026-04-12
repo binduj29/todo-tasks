@@ -39,9 +39,11 @@ function App() {
   }, []);
 
   const addTask = async (taskText: string, deadline: string) => {
+    const date = new Date(deadline);
+    date.setHours(23, 59, 59, 999);
     await axios.post(API, {
       text: taskText,
-      deadline: deadline || null,
+      deadline: date,
       isDone: false,
     });
 

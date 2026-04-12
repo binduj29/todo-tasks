@@ -24,9 +24,16 @@ const TaskTable: React.FC<Props> = ({ tasks, onDelete, onToggle, filter }) => {
   };
 
   const isOverdue = (task: Task) => {
-    return (
-      task.deadline && !task.isDone && new Date(task.deadline) < new Date()
-    );
+    if (!task.deadline || task.isDone) return false;
+
+    const now = new Date();
+    const due = new Date(task.deadline);
+
+    // Normalize both to end of day
+    const dueEnd = new Date(due);
+    dueEnd.setHours(23, 59, 59, 999);
+
+    return now > dueEnd;
   };
 
   const formatDate = (date?: string) => {
@@ -40,6 +47,7 @@ const TaskTable: React.FC<Props> = ({ tasks, onDelete, onToggle, filter }) => {
       if (filter === "done") return task.isDone;
       return true; // "all"
     })
+    .sort((a, b) => b.id - a.id)
     .sort((a, b) => {
       let result = 0;
 
@@ -60,7 +68,7 @@ const TaskTable: React.FC<Props> = ({ tasks, onDelete, onToggle, filter }) => {
     });
 
   return (
-    <div style={{ maxHeight: "300px", overflowY: "auto", marginTop: "10px" }}>
+    <div style={{ maxHeight: "51vh", overflowY: "auto" }}>
       <table className="table">
         <thead>
           <tr>
@@ -74,9 +82,11 @@ const TaskTable: React.FC<Props> = ({ tasks, onDelete, onToggle, filter }) => {
         <tbody>
           {processed.map((task) => (
             <tr key={task.id} className={isOverdue(task) ? "row-overdue" : ""}>
-              <div className="text-ellipsis" title={task.text}>
-                {task.text}
-              </div>
+              <td>
+                <div className="text-ellipsis" title={task.text}>
+                  {task.text}
+                </div>
+              </td>
               <td>{formatDate(task.deadline)}</td>
 
               <td>
