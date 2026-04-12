@@ -30,8 +30,11 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItem>> CreateTodo(TodoItem todo)
         {
-            if (todo.Text.Length <= 10)
-                return BadRequest("Task must be longer than 10 characters.");
+
+            if (todo.Text.Length <= 10 || todo.Text.Length > 70)
+            {
+                return BadRequest("Task must be between 10 and 70 characters");
+            }
 
             _context.Todos.Add(todo);
             await _context.SaveChangesAsync();
