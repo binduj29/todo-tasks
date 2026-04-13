@@ -42,7 +42,8 @@ todo-frontend/ -> Frontend (React)
 
 # How to Run the Project
 
- Clone repo git clone https://github.com/binduj29/todo-tasks
+Clone repo git clone https://github.com/binduj29/todo-tasks ->
+cd todo-tasks
 
 # Backend
 
